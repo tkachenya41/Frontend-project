@@ -1,0 +1,23 @@
+.form {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  gap: 5px;
+  @media (max-width: 425px) {
+    width: 270px;
+  }
+  .submit {
+    width: 40px;
+    border-radius: 10px;
+    background-color: cadetblue;
+    border: 1px solid gray;
+  }
+  .input {
+    padding: 10px 30px;
+    color: black;
+    border-radius: 10px;
+    border: solid;
+    text-align: center;
+    width: 300px;
+  }
+}
