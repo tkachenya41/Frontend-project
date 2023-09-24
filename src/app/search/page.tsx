@@ -6,9 +6,11 @@ import Image from "next/image";
 import { SearchPanel } from "@/features/SearchPanel/SearchPanel";
 import Link from "next/link";
 import { Articles } from "@/features/Articles/Articles";
-import { ArticleAPI } from "@/entities/Article";
+import { ArticleAPI, schemaArticleAPI } from "@/entities/Article";
 import Styles from "../page.module.scss";
 import { useSearchParams } from "next/navigation";
+import { schemaResponseAPI } from "../api/constants";
+import { z } from "zod";
 
 export default function SearchPage() {
   const search = useSearchParams();
@@ -18,8 +20,16 @@ export default function SearchPage() {
   const [error, setError] = useState("");
   useEffect(() => {
     fetchSearch({ request: encodedSearch })
-      .then((data) => setArticles(data.articles))
-      .catch((err) => setError(err.message));
+      .then((data) => {
+        const fetchedData = schemaResponseAPI.parse(data);
+        setArticles(fetchedData.articles);
+      })
+      .catch((err) => {
+        if (err instanceof z.ZodError) {
+          setError("Maybe mistaske is connected with invalid type");
+        }
+        setError(err);
+      });
   }, [encodedSearch]);
   return (
     <main className={Styles.main}>

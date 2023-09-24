@@ -1,7 +1,11 @@
-export interface ArticleAPI {
-  source: Record<"name", string | null>;
-  author: string;
-  title: string;
-  description: string;
-  urlToImage: string;
-}
+import { z } from "zod";
+
+export const schemaArticleAPI = z.object({
+  source: z.object({ name: z.string() }),
+  author: z.string(),
+  title: z.string(),
+  description: z.string(),
+  urlToImage: z.string(),
+});
+
+export type ArticleAPI = z.infer<typeof schemaArticleAPI>;

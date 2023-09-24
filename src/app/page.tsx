@@ -6,6 +6,8 @@ import { useEffect, useState } from "react";
 import { ArticleAPI } from "@/entities/Article";
 import { fetchNews } from "./api/fetchNews";
 import { Articles } from "@/features/Articles/Articles";
+import { schemaResponseAPI } from "./api/constants";
+import { z } from "zod";
 
 export default function Home() {
   const [articles, setArticles] = useState<ArticleAPI[]>([]);
@@ -14,7 +16,8 @@ export default function Home() {
     fetchNews()
       .then((data) => setArticles(data.articles))
       .catch((err) => setError(err.message));
-  }, []);
+  }, [articles]);
+
   return (
     <main className={Styles.main}>
       <div className={Styles.center}>
