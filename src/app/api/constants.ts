@@ -1,4 +1,4 @@
-import { ArticleAPI, schemaArticleAPI } from "@/entities/Article";
+import { schemaArticleAPI } from "@/entities/Article";
 import { z } from "zod";
 
 export const API_KEY = process.env.NEXT_PUBLIC_API_KEY;

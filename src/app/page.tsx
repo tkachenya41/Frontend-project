@@ -1,5 +1,4 @@
 "use client";
-import Image from "next/image";
 import Styles from "./page.module.scss";
 import { SearchPanel } from "@/features/SearchPanel/SearchPanel";
 import { useEffect, useState } from "react";
@@ -16,7 +15,7 @@ export default function Home() {
     fetchNews()
       .then((data) => setArticles(data.articles))
       .catch((err) => setError(err.message));
-  }, [articles]);
+  }, []);
 
   return (
     <main className={Styles.main}>

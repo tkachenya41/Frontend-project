@@ -17,16 +17,39 @@
   z-index: 2;
   font-family: var(--font-mono);
 }
+.panel {
+  display: flex;
+  gap: 5px;
+  justify-content: center;
+  @media (max-width: 460px) {
+    flex-wrap: wrap;
+  }
+}
 .center {
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  text-align: center;
   gap: 20px;
   .home {
     padding: 10px 30px;
     border-radius: 10px;
     background-color: cadetblue;
     border: 1px solid gray;
+    width: 30%;
+    text-align: center;
+    @media (max-width: 460px) {
+      width: 270px;
+    }
+  }
+}
+.noResult {
+  margin-top: 150px;
+  .sadSmile {
+    object-fit: scale-down;
+    width: 20%;
+    margin: 0 auto;
+    display: flex;
   }
 }

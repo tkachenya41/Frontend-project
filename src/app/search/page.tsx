@@ -17,12 +17,15 @@ export default function SearchPage() {
   const searchQuery = search ? search.get("q") : null;
   const encodedSearch = encodeURI(searchQuery || "");
   const [articles, setArticles] = useState<ArticleAPI[]>([]);
+  const [totalResults, setTotalResults] = useState<number>(1);
   const [error, setError] = useState("");
   useEffect(() => {
     fetchSearch({ request: encodedSearch })
       .then((data) => {
-        const fetchedData = schemaResponseAPI.parse(data);
-        setArticles(fetchedData.articles);
+        // const fetchedData = schemaResponseAPI.parse(data);
+        // setArticles(fetchedData.articles);
+        setArticles(data.articles);
+        setTotalResults(data.totalResults);
       })
       .catch((err) => {
         if (err instanceof z.ZodError) {
@@ -34,18 +37,20 @@ export default function SearchPage() {
   return (
     <main className={Styles.main}>
       <div className={Styles.center}>
-        <Image
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-        <SearchPanel></SearchPanel>
-        <button className={Styles.home}>
-          <Link href="/">Go home</Link>
-        </button>
-
+        <div className={Styles.panel}>
+          <button className={Styles.home}>
+            <Link href="/">Go home</Link>
+          </button>
+          <SearchPanel></SearchPanel>
+        </div>
+        {totalResults < 1 && (
+          <div className={Styles.noResult}>
+            <img className={Styles.sadSmile} src="/sadSmile.svg"></img>
+            <h1>
+              Not Found... <hr /> Try again later
+            </h1>
+          </div>
+        )}
         <Articles articles={articles}></Articles>
       </div>
     </main>
