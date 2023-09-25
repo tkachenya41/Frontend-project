@@ -1,19 +1,22 @@
+@import "../../app/variables";
 .form {
   display: flex;
-  width: 100%;
+  width: 270px;
   justify-content: center;
-  gap: 5px;
-  @media (max-width: 460px) {
-    width: 270px;
+  gap: 0.35rem;
+  @media (max-width: $tablet) {
+    width: 100%;
   }
+
   .submit {
     width: 40px;
     border-radius: 10px;
     background-color: cadetblue;
     border: 1px solid gray;
   }
+
   .input {
-    padding: 10px 30px;
+    padding: 0.65rem 2rem;
     color: black;
     border-radius: 10px;
     border: solid;

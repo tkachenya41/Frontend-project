@@ -2,14 +2,12 @@
 
 import { useEffect, useState } from "react";
 import { fetchSearch } from "../api/fetchSearch";
-import Image from "next/image";
 import { SearchPanel } from "@/features/SearchPanel/SearchPanel";
 import Link from "next/link";
 import { Articles } from "@/features/Articles/Articles";
-import { ArticleAPI, schemaArticleAPI } from "@/entities/Article";
+import { ArticleAPI } from "@/entities/Article";
 import Styles from "../page.module.scss";
 import { useSearchParams } from "next/navigation";
-import { schemaResponseAPI } from "../api/constants";
 import { z } from "zod";
 
 export default function SearchPage() {
@@ -18,22 +16,23 @@ export default function SearchPage() {
   const encodedSearch = encodeURI(searchQuery || "");
   const [articles, setArticles] = useState<ArticleAPI[]>([]);
   const [totalResults, setTotalResults] = useState<number>(1);
-  const [error, setError] = useState("");
   useEffect(() => {
-    fetchSearch({ request: encodedSearch })
-      .then((data) => {
-        // const fetchedData = schemaResponseAPI.parse(data);
-        // setArticles(fetchedData.articles);
+    async function fetchData() {
+      try {
+        const data = await fetchSearch({ request: encodedSearch });
         setArticles(data.articles);
         setTotalResults(data.totalResults);
-      })
-      .catch((err) => {
+      } catch (err) {
         if (err instanceof z.ZodError) {
-          setError("Maybe mistaske is connected with invalid type");
+          console.error("Maybe mistaske is connected with invalid type");
+        } else {
+          console.error(err);
         }
-        setError(err);
-      });
+      }
+    }
+    fetchData();
   }, [encodedSearch]);
+
   return (
     <main className={Styles.main}>
       <div className={Styles.center}>

@@ -5,16 +5,19 @@ import { useEffect, useState } from "react";
 import { ArticleAPI } from "@/entities/Article";
 import { fetchNews } from "./api/fetchNews";
 import { Articles } from "@/features/Articles/Articles";
-import { schemaResponseAPI } from "./api/constants";
-import { z } from "zod";
 
 export default function Home() {
   const [articles, setArticles] = useState<ArticleAPI[]>([]);
-  const [error, setError] = useState("");
   useEffect(() => {
-    fetchNews()
-      .then((data) => setArticles(data.articles))
-      .catch((err) => setError(err.message));
+    async function fetchData() {
+      try {
+        const response = await fetchNews();
+        setArticles(response.articles);
+      } catch (err) {
+        console.error(err);
+      }
+    }
+    fetchData();
   }, []);
 
   return (
