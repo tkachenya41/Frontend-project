@@ -1,4 +1,4 @@
-@import "variables";
+@import '../global_styles/variables';
 
 .main {
   display: flex;
@@ -10,54 +10,50 @@
 }
 
 .description {
+  z-index: 2;
+  width: 100%;
+  max-width: var(--max-width);
   display: inherit;
   justify-content: inherit;
   align-items: inherit;
-  font-size: 0.85rem;
-  max-width: var(--max-width);
-  width: 100%;
-  z-index: 2;
   font-family: var(--font-mono);
+  font-size: 0.85rem;
 }
 
 .panel {
   display: flex;
-  gap: 0.45rem;
-  justify-content: center;
   flex-wrap: wrap;
-  @media (min-width: $tablet) {
+  justify-content: center;
+  gap: 0.45rem;
+
+  @include media-tablet {
     flex-wrap: nowrap;
   }
 }
 
 .center {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
-  flex-direction: column;
   text-align: center;
   gap: 1.25rem;
 
   .home {
-    padding: 0.65rem 2rem;
-    border-radius: 10px;
     background-color: cadetblue;
-    border: 1px solid gray;
-    width: 270px;
+    width: 17rem;
     text-align: center;
-    @media (min-width: $tablet) {
+    padding: 0.65rem 2rem;
+    border: 1px solid gray;
+    border-radius: 0.6rem;
+
+    @include media-mobile {
       width: 30%;
     }
   }
 }
 
-.noResult {
-  margin-top: 15rem;
-
-  .sadSmile {
-    object-fit: scale-down;
-    width: 20%;
-    margin: 0 auto;
-    display: flex;
-  }
+.nothing,
+.spinner {
+  margin-top: 10rem;
 }

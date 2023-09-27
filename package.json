@@ -19,13 +19,20 @@
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "sass": "^1.68.0",
+    "stylelint-config-recess-order": "^4.3.0",
+    "stylelint-scss": "^5.2.1",
     "typescript": "5.2.2",
+    "uuid": "^9.0.1",
     "zod": "^3.22.2"
   },
   "devDependencies": {
+    "@types/uuid": "^9.0.4",
     "eslint": "^8.49.0",
     "eslint-config-prettier": "^9.0.0",
     "eslint-plugin-prettier": "^5.0.0",
-    "prettier": "^3.0.3"
+    "prettier": "^3.0.3",
+    "stylelint": "^15.10.3",
+    "stylelint-config-standard-scss": "^11.0.0",
+    "stylelint-order": "^6.0.3"
   }
 }

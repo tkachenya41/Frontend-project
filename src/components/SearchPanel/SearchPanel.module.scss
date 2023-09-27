@@ -1,0 +1,28 @@
+@import '../../global_styles/variables';
+
+.form {
+  width: 16.8rem;
+  display: flex;
+  justify-content: center;
+  gap: 0.35rem;
+
+  @include media-tablet {
+    width: 100%;
+  }
+
+  .submit {
+    background-color: var(--primary-color);
+    width: 2.5rem;
+    border-radius: 0.6rem;
+  }
+
+  .input {
+    color: var(--primary-dark-color);
+    width: 18.5rem;
+    text-align: center;
+    padding: 0.65rem 2rem;
+    border: solid;
+    border-radius: 0.6rem;
+    font-family: inherit;
+  }
+}
