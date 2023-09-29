@@ -1,15 +1,17 @@
-import { ArticleAPI } from '@/entities/Article';
+import { ArticleAPI } from '@/api/Article';
 import ArticlesStyle from './Articles.module.scss';
 import Image from 'next/image';
-import { v4 as uuidv4 } from 'uuid';
 
 export function Articles({ articles }: { articles: ArticleAPI[] }) {
   return (
     <div className={ArticlesStyle.articles}>
       {articles.map((article) => (
-        <div className={ArticlesStyle.article} key={uuidv4()}>
+        <div className={ArticlesStyle.article} key={article.id}>
           {article.urlToImage ? (
-            <img className={ArticlesStyle.img} src={article.urlToImage} />
+            <img
+              className={ArticlesStyle.img}
+              src={article.urlToImage}
+            />
           ) : (
             <Image
               className={ArticlesStyle.img}
@@ -20,7 +22,9 @@ export function Articles({ articles }: { articles: ArticleAPI[] }) {
             />
           )}
           <h3 className={ArticlesStyle.title}>{article.title}</h3>
-          <p className={ArticlesStyle.description}>{article.description}</p>
+          <p className={ArticlesStyle.description}>
+            {article.description}
+          </p>
         </div>
       ))}
     </div>

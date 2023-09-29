@@ -1,4 +1,4 @@
-@import '../global_styles/variables';
+@import '../assets/variables';
 
 .main {
   display: flex;
@@ -38,19 +38,16 @@
   align-items: center;
   text-align: center;
   gap: 1.25rem;
+}
 
-  .home {
-    background-color: cadetblue;
-    width: 17rem;
-    text-align: center;
-    padding: 0.65rem 2rem;
-    border: 1px solid gray;
-    border-radius: 0.6rem;
-
-    @include media-mobile {
-      width: 30%;
-    }
-  }
+.home {
+  background-color: cadetblue;
+  width: 10rem;
+  text-align: center;
+  padding: 0.65rem 2rem;
+  border: 1px solid gray;
+  border-radius: 0.6rem;
+  font-family: inherit;
 }
 
 .nothing,

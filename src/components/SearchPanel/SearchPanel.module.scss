@@ -1,4 +1,4 @@
-@import '../../global_styles/variables';
+@use '@/assets/variables';
 
 .form {
   width: 16.8rem;
@@ -6,17 +6,17 @@
   justify-content: center;
   gap: 0.35rem;
 
-  @include media-tablet {
+  @include variables.media-tablet {
     width: 100%;
   }
 
-  .submit {
+  &__submit {
     background-color: var(--primary-color);
     width: 2.5rem;
     border-radius: 0.6rem;
   }
 
-  .input {
+  &__input {
     color: var(--primary-dark-color);
     width: 18.5rem;
     text-align: center;

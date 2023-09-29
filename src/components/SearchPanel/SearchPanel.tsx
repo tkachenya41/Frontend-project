@@ -1,9 +1,8 @@
 'use client';
 import SearchStyle from './SearchPanel.module.scss';
-import { SearchState } from './Search.types';
-import { PropsWithChildren, useState } from 'react';
-import { getDefaultFormValues } from './Search.utils';
+import { useState } from 'react';
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 
 export function SearchPanel({
   setSearchQuery,
@@ -12,28 +11,33 @@ export function SearchPanel({
   setSearchQuery: (query: string) => void;
   placeholder?: string;
 }) {
+  const router = useRouter();
+  const [inputValue, setInputValue] = useState('');
   const handleSubmit = (event: React.SyntheticEvent) => {
     event.preventDefault();
-    const encodedSearch = encodeURI(formState.request);
+    const encodedSearch = encodeURI(inputValue);
     setSearchQuery(encodedSearch);
-    setFormState(getDefaultFormValues);
+    router.push(`/?q=${encodedSearch}`);
+    setInputValue('');
   };
-  const [formState, setFormState] = useState<SearchState>(
-    getDefaultFormValues(),
-  );
 
   return (
     <form className={SearchStyle.form} onSubmit={handleSubmit}>
       <input
-        className={SearchStyle.input}
-        value={formState.request}
+        className={SearchStyle.form__input}
+        value={inputValue}
         placeholder={placeholder}
         onChange={({ target: { value } }) => {
-          setFormState({ request: value });
+          setInputValue(value);
         }}
       />
-      <button className={SearchStyle.submit} type='submit'>
-        <Image src='/search.svg' alt='search' width={20} height={20} />
+      <button className={SearchStyle.form__submit} type='submit'>
+        <Image
+          src='/search.svg'
+          alt='search'
+          width={20}
+          height={20}
+        />
       </button>
     </form>
   );

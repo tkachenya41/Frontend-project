@@ -1,65 +1,79 @@
 'use client';
 import Styles from './page.module.scss';
-
 import { useEffect, useState } from 'react';
-import { ArticleAPI } from '@/entities/Article';
-
 import { Articles } from '@/features/Articles/Articles';
-
-import { fetchNews } from './api/fetchNews';
-import { fetchSearch } from './api/fetchSearch';
+import { ArticleAPI } from '@/api/Article';
+import { fetchNews } from '@/api/fetchNews';
+import { fetchSearch } from '@/api/fetchSearch';
 import { SearchPanel } from '@/components/SearchPanel/SearchPanel';
 import Image from 'next/image';
+import { v4 as uuidv4 } from 'uuid';
+import { useSearchParams } from 'next/navigation';
+import Link from 'next/link';
 
 export default function Home() {
-  const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [articles, setArticles] = useState<ArticleAPI[]>([]);
-  const [searchQuery, setSearchQuery] = useState<string | null>(null);
-  const [isSearchPerformed, setIsSearchPerformed] =
-    useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [articles, setArticles] = useState<ArticleAPI[] | null>(null);
+  const [searchQuery, setSearchQuery] = useState('');
+  const search = useSearchParams();
+  const currentSearchQuery = search.get('q');
 
   useEffect(() => {
-    async function fetchData() {
-      setIsLoading(true);
-      try {
-        const response = await fetchNews();
-        setArticles(response.articles);
-        setIsLoading(false);
-      } catch (err) {
-        console.error(err);
-        setIsLoading(false);
-      }
-    }
-    fetchData();
-  }, []);
-
-  useEffect(() => {
-    async function performSearch() {
-      if (searchQuery) {
+    if (!currentSearchQuery) {
+      (async function () {
         setIsLoading(true);
         try {
-          const response = await fetchSearch({
-            request: searchQuery,
-          });
-          setArticles(response.articles);
-          setIsLoading(false);
-          setIsSearchPerformed(true);
+          const response = await fetchNews();
+          const articlesWithId = response.articles.map((article) => ({
+            ...article,
+            id: uuidv4(),
+          }));
+          setArticles(articlesWithId);
         } catch (err) {
-          setIsLoading(false);
           console.error(err);
+        } finally {
+          setIsLoading(false);
         }
-      }
+      })();
+    } else {
+      setSearchQuery(currentSearchQuery);
     }
-    performSearch();
+  }, [currentSearchQuery]);
+
+  useEffect(() => {
+    (async function () {
+      if (!searchQuery) return;
+      setIsLoading(true);
+      try {
+        const response = await fetchSearch({
+          request: searchQuery,
+        });
+        const articlesWithId = response.articles.map((article) => ({
+          ...article,
+          id: uuidv4(),
+        }));
+        setArticles(articlesWithId);
+      } catch (err) {
+        console.error(err);
+      } finally {
+        setIsLoading(false);
+      }
+    })();
   }, [searchQuery]);
 
   return (
     <main className={Styles.main}>
       <div className={Styles.center}>
+        {currentSearchQuery && (
+          <button className={Styles.home}>
+            <Link href={'/'}>Go home</Link>
+          </button>
+        )}
         <SearchPanel
           setSearchQuery={setSearchQuery}
-          placeholder='Search news ...'></SearchPanel>
-        {searchQuery && <h2>Results of : '{searchQuery}'</h2>}
+          placeholder='Search news ...'
+        />
+        {currentSearchQuery && <h2>Results of : '{searchQuery}'</h2>}
         {isLoading ? (
           <Image
             width={300}
@@ -69,7 +83,7 @@ export default function Home() {
             className={Styles.spinner}
           />
         ) : null}
-        {isSearchPerformed && articles.length < 1 && (
+        {articles?.length === 0 && (
           <div className={Styles.nothing}>
             <Image
               width={200}
@@ -81,7 +95,7 @@ export default function Home() {
             </h2>
           </div>
         )}
-        <Articles articles={articles}></Articles>
+        {articles && <Articles articles={articles}></Articles>}
       </div>
     </main>
   );
