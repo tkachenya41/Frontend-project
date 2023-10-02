@@ -1,4 +1,4 @@
-@import '../assets/variables';
+@use '@/assets/styles/variables' as *;
 
 .main {
   display: flex;
@@ -26,7 +26,7 @@
   justify-content: center;
   gap: 0.45rem;
 
-  @include media-tablet {
+  @include media-mobile-l {
     flex-wrap: nowrap;
   }
 }
@@ -38,16 +38,7 @@
   align-items: center;
   text-align: center;
   gap: 1.25rem;
-}
-
-.home {
-  background-color: cadetblue;
-  width: 10rem;
-  text-align: center;
-  padding: 0.65rem 2rem;
-  border: 1px solid gray;
-  border-radius: 0.6rem;
-  font-family: inherit;
+  margin-top: 4rem;
 }
 
 .nothing,

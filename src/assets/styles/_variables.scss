@@ -1,9 +1,16 @@
 $mobile: 320px;
-$tablet: 460px;
+$mobile-l: 460px;
+$tablet: 768px;
 $desktop: 1024px;
 
 @mixin media-mobile {
   @media (min-width: $mobile) {
+    @content;
+  }
+}
+
+@mixin media-mobile-l {
+  @media (min-width: $mobile-l) {
     @content;
   }
 }

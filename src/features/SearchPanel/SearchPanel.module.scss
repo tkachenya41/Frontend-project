@@ -1,28 +1,30 @@
-@use '@/assets/variables';
+@use '@/assets/styles/variables' as *;
 
 .form {
-  width: 16.8rem;
   display: flex;
   justify-content: center;
   gap: 0.35rem;
 
-  @include variables.media-tablet {
-    width: 100%;
-  }
-
   &__submit {
     background-color: var(--primary-color);
-    width: 2.5rem;
+    display: flex;
+    align-items: center;
+    padding: 0.4rem;
+    border: 1px solid var(--primary-dark-color);
     border-radius: 0.6rem;
   }
 
   &__input {
     color: var(--primary-dark-color);
-    width: 18.5rem;
+    width: 13rem;
     text-align: center;
     padding: 0.65rem 2rem;
     border: solid;
     border-radius: 0.6rem;
     font-family: inherit;
+
+    @include media-tablet {
+      width: 19.5rem;
+    }
   }
 }

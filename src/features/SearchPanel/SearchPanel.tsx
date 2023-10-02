@@ -1,22 +1,22 @@
 'use client';
 import SearchStyle from './SearchPanel.module.scss';
-import { useState } from 'react';
+import { SyntheticEvent, useState } from 'react';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
+import { useSearch } from '@/contexts/SearchContext/SearchContext';
 
-export function SearchPanel({
-  setSearchQuery,
-  placeholder,
-}: {
-  setSearchQuery: (query: string) => void;
-  placeholder?: string;
-}) {
+export function SearchPanel({ placeholder }: { placeholder?: string }) {
+  const { setSearchQuery } = useSearch();
   const router = useRouter();
+
   const [inputValue, setInputValue] = useState('');
-  const handleSubmit = (event: React.SyntheticEvent) => {
+
+  const handleSubmit = (event: SyntheticEvent) => {
     event.preventDefault();
+
     const encodedSearch = encodeURI(inputValue);
     setSearchQuery(encodedSearch);
+
     router.push(`/?q=${encodedSearch}`);
     setInputValue('');
   };
@@ -32,12 +32,7 @@ export function SearchPanel({
         }}
       />
       <button className={SearchStyle.form__submit} type='submit'>
-        <Image
-          src='/search.svg'
-          alt='search'
-          width={20}
-          height={20}
-        />
+        <Image src='/search.svg' alt='search' width={20} height={20} />
       </button>
     </form>
   );

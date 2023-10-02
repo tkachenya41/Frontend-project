@@ -13,13 +13,9 @@ body {
 }
 
 body {
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
-  color: rgb(var(--foreground-rgb));
+  background: linear-gradient(to bottom, transparent, (var(--background-end-rgb)))
+    (var(--background-start-rgb));
+  color: (var(--foreground-rgb));
 }
 
 a {
