@@ -1,0 +1,57 @@
+@use '@/assets/styles/variables' as *;
+
+.list {
+  position: absolute;
+  top: 4rem;
+  right: 1rem;
+  z-index: 1000;
+  background-color: var(--primary-header-color);
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 0.8rem;
+  padding: 1rem;
+  list-style-type: none;
+  translate: 120% 0;
+  transition: transform 300ms ease-in-out;
+
+  &[data-open='true'] {
+    width: 150px;
+    translate: 20% 0;
+
+    @include media-tablet {
+      width: auto;
+      translate: 0;
+    }
+  }
+
+  @include media-tablet {
+    position: static;
+    width: auto;
+    height: auto;
+    flex-direction: row;
+    padding: 0;
+    translate: 0;
+  }
+}
+
+.active {
+  background-color: var(--primary-color);
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+}
+
+.button {
+  background-color: var(--primary-dark-color);
+  display: flex;
+  align-items: center;
+  padding: 0.4rem;
+  border: none;
+  border-radius: 0.6rem;
+
+  @include media-tablet {
+    display: none;
+  }
+}

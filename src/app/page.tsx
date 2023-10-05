@@ -1,95 +1,71 @@
-import Image from "next/image";
-import styles from "./page.module.scss";
+'use client';
+import Styles from './page.module.scss';
+import { useEffect, useState } from 'react';
+import { Articles } from '@/features/Articles/Articles';
+import { ArticleAPI } from '@/api/Article';
+import { fetchNews } from '@/api/fetchNews';
+import { fetchSearch } from '@/api/fetchSearch';
+import Image from 'next/image';
+import { useSearchParams } from 'next/navigation';
+import Loader from '@/components/Loader/Loader';
 
 export default function Home() {
+  const [isLoading, setIsLoading] = useState(false);
+  const [articles, setArticles] = useState<ArticleAPI[] | null>(null);
+  const [searchQuery, setSearchQuery] = useState('');
+
+  const search = useSearchParams();
+  const currentSearchQuery = search.get('q');
+
+  useEffect(() => {
+    if (!currentSearchQuery) {
+      (async function () {
+        setIsLoading(true);
+        try {
+          const response = await fetchNews();
+          setArticles(response.articles);
+        } catch (err) {
+          console.error(err);
+        } finally {
+          setIsLoading(false);
+        }
+      })();
+    } else {
+      setSearchQuery(currentSearchQuery);
+    }
+  }, [currentSearchQuery]);
+
+  useEffect(() => {
+    (async function () {
+      if (!searchQuery) return;
+      setIsLoading(true);
+      try {
+        const response = await fetchSearch({
+          request: searchQuery,
+        });
+        setArticles(response.articles);
+      } catch (err) {
+        console.error(err);
+      } finally {
+        setIsLoading(false);
+      }
+    })();
+  }, [searchQuery]);
+
   return (
-    <main className={styles.main}>
-      <div className={styles.description}>
-        <p>
-          Get started by editing&nbsp;
-          <code className={styles.code}>src/app/page.tsx</code>
-        </p>
-
-        <div>
-          <a
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{" "}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className={styles.vercelLogo}
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
-        </div>
-      </div>
-
-      <div className={styles.center}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
-
-      <div className={styles.grid}>
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Docs <span>-&gt;</span>
-          </h2>
-          <p>Find in-depth information about Next.js features and API.</p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Learn <span>-&gt;</span>
-          </h2>
-          <p>Learn about Next.js in an interactive course with&nbsp;quizzes!</p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Templates <span>-&gt;</span>
-          </h2>
-          <p>Explore the Next.js 13 playground.</p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Deploy <span>-&gt;</span>
-          </h2>
-          <p>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
+    <main className={Styles.main}>
+      <div className={Styles.center}>
+        {currentSearchQuery && <h2>Results of : '{searchQuery}'</h2>}
+        <Loader isLoading={isLoading} />
+        {articles?.length === 0 && (
+          <div className={Styles.nothing}>
+            <Image width={200} height={200} alt='No svg' src={'/sadSmile.svg'}></Image>
+            <h2>
+              Not Found... <hr /> Try again later
+            </h2>
+          </div>
+        )}
+        <Articles articles={articles}></Articles>
       </div>
     </main>
   );
