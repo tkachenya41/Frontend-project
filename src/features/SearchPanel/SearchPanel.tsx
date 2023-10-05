@@ -1,9 +1,9 @@
 'use client';
 import SearchStyle from './SearchPanel.module.scss';
-import { SyntheticEvent, useState } from 'react';
-import Image from 'next/image';
+import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useSearch } from '@/contexts/SearchContext/SearchContext';
+import { DebounceInput } from 'react-debounce-input';
 
 export function SearchPanel({ placeholder }: { placeholder?: string }) {
   const { setSearchQuery } = useSearch();
@@ -11,29 +11,23 @@ export function SearchPanel({ placeholder }: { placeholder?: string }) {
 
   const [inputValue, setInputValue] = useState('');
 
-  const handleSubmit = (event: SyntheticEvent) => {
-    event.preventDefault();
+  const handleChange = ({ target: { value } }: { target: { value: string } }) => {
+    setInputValue(value);
 
-    const encodedSearch = encodeURI(inputValue);
+    const encodedSearch = encodeURI(value);
     setSearchQuery(encodedSearch);
 
     router.push(`/?q=${encodedSearch}`);
-    setInputValue('');
   };
 
   return (
-    <form className={SearchStyle.form} onSubmit={handleSubmit}>
-      <input
-        className={SearchStyle.form__input}
-        value={inputValue}
-        placeholder={placeholder}
-        onChange={({ target: { value } }) => {
-          setInputValue(value);
-        }}
-      />
-      <button className={SearchStyle.form__submit} type='submit'>
-        <Image src='/search.svg' alt='search' width={20} height={20} />
-      </button>
-    </form>
+    <DebounceInput
+      className={SearchStyle.input}
+      value={inputValue}
+      placeholder={placeholder}
+      debounceTimeout={500}
+      onChange={(e) => handleChange(e)}
+      onBlur={() => setInputValue('')}
+    />
   );
 }
