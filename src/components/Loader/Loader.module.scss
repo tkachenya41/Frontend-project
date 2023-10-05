@@ -1,0 +1,39 @@
+.loader {
+  width: 7rem;
+  height: 7rem;
+  display: flex;
+  flex-flow: column wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 0.3rem;
+  margin-top: 12rem;
+
+  &__square {
+    background-color: var(--secondary-color);
+    width: 3rem;
+    height: 3rem;
+    border: 0.3rem solid var(--primary-dark-color);
+    animation: swing 2s ease-in-out infinite;
+    animation-fill-mode: forwards;
+  }
+
+  @keyframes swing {
+    0% {
+      transform: rotate(0deg);
+    }
+
+    33% {
+      transform: rotate(70deg);
+      border-radius: 20%;
+    }
+
+    66% {
+      transform: rotate(-70deg);
+      border-radius: 20%;
+    }
+
+    100% {
+      transform: rotate(0deg);
+    }
+  }
+}
