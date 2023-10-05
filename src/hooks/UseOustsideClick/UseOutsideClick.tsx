@@ -4,7 +4,6 @@ import { useEffect, useRef } from 'react';
 
 export const useOutsideClick = (callback: () => void) => {
   const listRef = useRef<HTMLUListElement>(null);
-  const buttonRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -20,5 +19,5 @@ export const useOutsideClick = (callback: () => void) => {
     };
   }, [callback]);
 
-  return { listRef, buttonRef };
+  return listRef;
 };

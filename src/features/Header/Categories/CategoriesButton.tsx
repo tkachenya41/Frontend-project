@@ -5,14 +5,12 @@ import { RefObject } from 'react';
 export default function CategoriesButton({
   isOpen,
   onClick,
-  reference,
 }: {
   isOpen: boolean;
   onClick: () => void;
-  reference: RefObject<HTMLButtonElement>;
 }) {
   return (
-    <button className={Style.button} onClick={onClick} ref={reference}>
+    <button className={Style.button} onClick={onClick}>
       <Image
         src={isOpen ? '/close.svg' : '/burger.svg'}
         alt='burger'

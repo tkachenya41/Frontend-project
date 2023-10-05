@@ -21,12 +21,8 @@ export default function Header() {
       <div className={HeaderStyle.search}>
         <SearchPanel placeholder='Search news ...' />
       </div>
-      <CategoriesButton
-        isOpen={isOpen}
-        onClick={toggleBurger}
-        reference={reference.buttonRef}
-      />
-      <Categories isOpen={isOpen} reference={reference.listRef} makeOpen={toggleBurger} />
+      <CategoriesButton isOpen={isOpen} onClick={toggleBurger} />
+      <Categories isOpen={isOpen} reference={reference} makeOpen={toggleBurger} />
     </header>
   );
 }
