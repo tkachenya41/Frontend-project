@@ -6,7 +6,7 @@ export interface OptionProps {
 export const initialState = {
   language: 'en',
   pageSize: '10',
-  sortBy: 'piblishedAt',
+  sortBy: 'publishedAt',
 };
 
 export const languageOptions = [
