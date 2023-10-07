@@ -8,54 +8,56 @@ import { fetchSearch } from '@/api/fetchSearch';
 import Image from 'next/image';
 import { useSearchParams } from 'next/navigation';
 import Loader from '@/components/Loader/Loader';
+import SelectGroup from '@/features/SelectGroup/SelectGroup';
 
 export default function Home() {
   const [isLoading, setIsLoading] = useState(false);
   const [articles, setArticles] = useState<ArticleAPI[] | null>(null);
-  const [searchQuery, setSearchQuery] = useState('');
 
-  const search = useSearchParams();
-  const currentSearchQuery = search.get('q');
+  const query = useSearchParams();
 
-  useEffect(() => {
-    if (!currentSearchQuery) {
-      (async function () {
-        setIsLoading(true);
-        try {
-          const response = await fetchNews();
-          setArticles(response.articles);
-        } catch (err) {
-          console.error(err);
-        } finally {
-          setIsLoading(false);
-        }
-      })();
-    } else {
-      setSearchQuery(currentSearchQuery);
-    }
-  }, [currentSearchQuery]);
+  const currentSearchQuery = query.get('q') || '';
+  const currentLanguageQuery = query.get('language') || '';
+  const currentSizeQuery = query.get('pageSize') || '';
+  const currentSortBy = query.get('sortBy') || '';
 
   useEffect(() => {
-    (async function () {
-      if (!searchQuery) return;
+    const fetchData = async () => {
       setIsLoading(true);
       try {
-        const response = await fetchSearch({
-          request: searchQuery,
-        });
+        let response;
+
+        if (!currentSearchQuery) {
+          response = await fetchNews();
+        } else {
+          response = await fetchSearch({
+            request: currentSearchQuery,
+            language: currentLanguageQuery,
+            pageSize: currentSizeQuery,
+            sortBy: currentSortBy,
+          });
+        }
+
         setArticles(response.articles);
       } catch (err) {
         console.error(err);
       } finally {
         setIsLoading(false);
       }
-    })();
-  }, [searchQuery]);
+    };
+
+    fetchData();
+  }, [currentSearchQuery, currentLanguageQuery, currentSizeQuery, currentSortBy]);
 
   return (
     <main className={Styles.main}>
       <div className={Styles.center}>
-        {currentSearchQuery && <h2>Results of : '{searchQuery}'</h2>}
+        {currentSearchQuery && (
+          <>
+            <SelectGroup currentSearchQuery={currentSearchQuery} />
+            <h2>Results of : '{currentSearchQuery}'</h2>
+          </>
+        )}
         <Loader isLoading={isLoading} />
         {articles?.length === 0 && (
           <div className={Styles.nothing}>
