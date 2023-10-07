@@ -1,6 +1,6 @@
 'use client';
 import SearchStyle from './SearchPanel.module.scss';
-import { useState } from 'react';
+import { ChangeEvent, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useSearch } from '@/contexts/SearchContext/SearchContext';
 import { DebounceInput } from 'react-debounce-input';
@@ -11,7 +11,7 @@ export function SearchPanel({ placeholder }: { placeholder?: string }) {
 
   const [inputValue, setInputValue] = useState('');
 
-  const handleChange = ({ target: { value } }: { target: { value: string } }) => {
+  const handleChange = ({ target: { value } }: ChangeEvent<HTMLInputElement>) => {
     setInputValue(value);
 
     const encodedSearch = encodeURI(value);
@@ -26,7 +26,7 @@ export function SearchPanel({ placeholder }: { placeholder?: string }) {
       value={inputValue}
       placeholder={placeholder}
       debounceTimeout={500}
-      onChange={(e) => handleChange(e)}
+      onChange={handleChange}
       onBlur={() => setInputValue('')}
     />
   );
