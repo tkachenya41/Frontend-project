@@ -5,7 +5,7 @@ import HeaderStyle from './Header.module.scss';
 import CategoriesButton from './Categories/CategoriesButton';
 
 import { SearchPanel } from '../SearchPanel/SearchPanel';
-import { useOutsideClick } from '@/hooks/useOustsideClick/useOutsideClick';
+import { useOutsideClick } from '@/hooks/useOutsideClick/useOutsideClick';
 
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false);

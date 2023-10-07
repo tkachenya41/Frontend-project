@@ -17,12 +17,12 @@ export default function Home() {
   const query = useSearchParams();
 
   const currentSearchQuery = query.get('q') || '';
-  const currentLanguageQuery = query.get('language') || '';
-  const currentSizeQuery = query.get('pageSize') || '';
-  const currentSortBy = query.get('sortBy') || '';
+  const currentLanguageQuery = query.get('language') || 'en';
+  const currentSizeQuery = query.get('pageSize') || '20';
+  const currentSortBy = query.get('sortBy') || 'publishedAt';
 
   useEffect(() => {
-    const fetchData = async () => {
+    (async function () {
       setIsLoading(true);
       try {
         let response;
@@ -44,9 +44,7 @@ export default function Home() {
       } finally {
         setIsLoading(false);
       }
-    };
-
-    fetchData();
+    })();
   }, [currentSearchQuery, currentLanguageQuery, currentSizeQuery, currentSortBy]);
 
   return (
