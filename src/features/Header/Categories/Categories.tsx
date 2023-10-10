@@ -15,10 +15,11 @@ export default function Categories({
   const pathname = usePathname();
   const search = useSearchParams();
   const query = search.get('q');
+  const language = search.get('language');
 
   return (
     <ul className={Style.list} data-open={isOpen} ref={reference} onClick={makeOpen}>
-      <li className={!query && pathname === '/' ? Style.active : ''}>
+      <li className={!language && !query && pathname === '/' ? Style.active : ''}>
         <Link href={'/'}>Home</Link>
       </li>
       <li className={pathname === '/sports' ? Style.active : ''}>

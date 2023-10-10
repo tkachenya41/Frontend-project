@@ -1,3 +1,5 @@
+@use '@/assets/styles/variables' as *;
+
 .articles {
   display: flex;
   flex-wrap: wrap;
@@ -7,8 +9,12 @@
 }
 
 .article {
-  width: 18.5rem;
-  height: auto;
+  width: 18rem;
+
+  @include media-mobile-l {
+    width: 20.5rem;
+    height: auto;
+  }
 }
 
 .img {
