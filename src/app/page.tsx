@@ -9,10 +9,14 @@ import Image from 'next/image';
 import { useSearchParams } from 'next/navigation';
 import Loader from '@/components/Loader/Loader';
 import SelectGroup from '@/features/SelectGroup/SelectGroup';
+import Modal from '@/components/Popup/Popup';
+import { AxiosError } from 'axios';
 
 export default function Home() {
   const [isLoading, setIsLoading] = useState(false);
   const [articles, setArticles] = useState<ArticleAPI[] | null>(null);
+  const [isErrorModalOpen, setIsErrorModalOpen] = useState(false);
+  const [errorText, setErrorText] = useState('');
 
   const query = useSearchParams();
 
@@ -41,6 +45,8 @@ export default function Home() {
         setArticles(response.articles);
       } catch (err) {
         console.error(err);
+        setIsErrorModalOpen(true);
+        err instanceof AxiosError ? setErrorText(err.message) : 'An error occurred';
       } finally {
         setIsLoading(false);
       }
@@ -50,6 +56,7 @@ export default function Home() {
   return (
     <main className={Styles.main}>
       <div className={Styles.center}>
+        <Modal isOpen={isErrorModalOpen} errorText={errorText}></Modal>
         {currentSearchQuery && (
           <>
             <SelectGroup currentSearchQuery={currentSearchQuery} />
