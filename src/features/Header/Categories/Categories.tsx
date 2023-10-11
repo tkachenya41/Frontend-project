@@ -25,8 +25,8 @@ export default function Categories({
       <li className={pathname === '/sports' ? Style.active : ''}>
         <Link href={'/sports'}>Sports</Link>
       </li>
-      <li className={pathname === '/politics' ? Style.active : ''}>
-        <Link href={'/politics'}>Politics</Link>
+      <li className={pathname === '/entertainment' ? Style.active : ''}>
+        <Link href={'/entertainment'}>Entertainment</Link>
       </li>
       <li className={pathname === '/business' ? Style.active : ''}>
         <Link href={'/business'}>Business</Link>
