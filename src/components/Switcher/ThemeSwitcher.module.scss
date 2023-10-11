@@ -1,0 +1,11 @@
+.switcher {
+  padding: 0.2rem;
+  display: flex;
+  border-radius: 9999px;
+  border: 1px solid var(--secondary-dark-color);
+
+  &__button {
+    background: transparent;
+    border: none;
+  }
+}

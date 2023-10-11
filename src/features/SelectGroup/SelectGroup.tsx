@@ -42,6 +42,12 @@ export default function SelectGroup({
   return (
     <div className={Style.selectGroup}>
       <Select
+        styles={{
+          menu: (baseStyles) => ({
+            ...baseStyles,
+            backgroundColor: 'var(--primary-background-color)',
+          }),
+        }}
         instanceId='languageSort'
         className={Style.selectGroup__select}
         options={languageOptions}
@@ -49,6 +55,12 @@ export default function SelectGroup({
         placeholder='Language'
       />
       <Select
+        styles={{
+          menu: (baseStyles) => ({
+            ...baseStyles,
+            backgroundColor: 'var(--primary-background-color)',
+          }),
+        }}
         instanceId='pageSizeSort'
         className={Style.selectGroup__select}
         options={pageSizeOptions}
@@ -56,6 +68,12 @@ export default function SelectGroup({
         placeholder='Page size'
       />
       <Select
+        styles={{
+          menu: (baseStyles) => ({
+            ...baseStyles,
+            backgroundColor: 'var(--primary-background-color)',
+          }),
+        }}
         instanceId='Sortby'
         className={Style.selectGroup__select}
         options={sortByOptions}
