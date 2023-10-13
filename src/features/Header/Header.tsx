@@ -7,7 +7,6 @@ import CategoriesButton from './Categories/CategoriesButton';
 import { SearchPanel } from '../SearchPanel/SearchPanel';
 import { useOutsideClick } from '@/hooks/useOutsideClick/useOutsideClick';
 import Image from 'next/image';
-import ThemeSwitcher from '@/components/Switcher/ThemeSwitcher';
 
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false);

@@ -11,6 +11,7 @@ import {
   pageSizeOptions,
   sortByOptions,
 } from './constants';
+import './SelectGroup.scss';
 
 export default function SelectGroup({
   currentSearchQuery,
@@ -42,12 +43,7 @@ export default function SelectGroup({
   return (
     <div className={Style.selectGroup}>
       <Select
-        styles={{
-          menu: (baseStyles) => ({
-            ...baseStyles,
-            backgroundColor: 'var(--primary-background-color)',
-          }),
-        }}
+        classNamePrefix='react-select'
         instanceId='languageSort'
         className={Style.selectGroup__select}
         options={languageOptions}
@@ -55,12 +51,7 @@ export default function SelectGroup({
         placeholder='Language'
       />
       <Select
-        styles={{
-          menu: (baseStyles) => ({
-            ...baseStyles,
-            backgroundColor: 'var(--primary-background-color)',
-          }),
-        }}
+        classNamePrefix='react-select'
         instanceId='pageSizeSort'
         className={Style.selectGroup__select}
         options={pageSizeOptions}
@@ -68,12 +59,7 @@ export default function SelectGroup({
         placeholder='Page size'
       />
       <Select
-        styles={{
-          menu: (baseStyles) => ({
-            ...baseStyles,
-            backgroundColor: 'var(--primary-background-color)',
-          }),
-        }}
+        classNamePrefix='react-select'
         instanceId='Sortby'
         className={Style.selectGroup__select}
         options={sortByOptions}

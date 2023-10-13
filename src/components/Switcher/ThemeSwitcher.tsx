@@ -9,26 +9,24 @@ export default function ThemeSwitcher() {
     <div className={Style.switcher}>
       <button className={Style.switcher__button} onClick={() => toggleTheme('light')}>
         <Image
+          className={Style.switcher__icon}
           src={'/sun.svg'}
           alt='sun'
           width={30}
           height={30}
           style={{
-            borderRadius: '50%',
-            padding: '0.2rem',
             backgroundColor: theme === 'light' ? 'var(--primary-color)' : 'transparent',
           }}
         />
       </button>
       <button className={Style.switcher__button} onClick={() => toggleTheme('dark')}>
         <Image
+          className={Style.switcher__icon}
           src={'/moon.svg'}
           alt='moon'
           width={30}
           height={30}
           style={{
-            borderRadius: '50%',
-            padding: '0.2rem',
             backgroundColor: theme === 'dark' ? 'var(--primary-color)' : 'transparent',
           }}
         />
