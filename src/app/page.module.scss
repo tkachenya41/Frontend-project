@@ -11,13 +11,13 @@
 
 .description {
   z-index: 2;
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
   width: 100%;
   max-width: var(--max-width);
   display: inherit;
   justify-content: inherit;
   align-items: inherit;
-  font-family: var(--font-mono);
-  font-size: 0.85rem;
 }
 
 .panel {

@@ -9,10 +9,19 @@ import Image from 'next/image';
 import { useSearchParams } from 'next/navigation';
 import Loader from '@/components/Loader/Loader';
 import SelectGroup from '@/features/SelectGroup/SelectGroup';
+import Modal from '@/components/Popup/Popup';
+import { AxiosError } from 'axios';
+
+const axiosErrorText =
+  'An error occurred while accessing the server. The server is unavailable or the requested resource was not found.';
+
+const commonErrorText = 'An error occurred';
 
 export default function Home() {
   const [isLoading, setIsLoading] = useState(false);
   const [articles, setArticles] = useState<ArticleAPI[] | null>(null);
+  const [isErrorModalOpen, setIsErrorModalOpen] = useState(false);
+  const [errorText, setErrorText] = useState('');
 
   const query = useSearchParams();
 
@@ -40,7 +49,8 @@ export default function Home() {
 
         setArticles(response.articles);
       } catch (err) {
-        console.error(err);
+        setIsErrorModalOpen(true);
+        setErrorText(err instanceof AxiosError ? axiosErrorText : commonErrorText);
       } finally {
         setIsLoading(false);
       }
@@ -50,6 +60,7 @@ export default function Home() {
   return (
     <main className={Styles.main}>
       <div className={Styles.center}>
+        <Modal isOpen={isErrorModalOpen} text={errorText} status='error' />
         {currentSearchQuery && (
           <>
             <SelectGroup currentSearchQuery={currentSearchQuery} />
