@@ -1,23 +1,22 @@
 'use client';
 import { PropsWithChildren, useEffect, useState } from 'react';
-import { ThemeContext } from './ThemeContext';
+import { AppTheme, ThemeContext } from './ThemeContext';
 
 export function ThemeProvider({ children }: PropsWithChildren) {
-  const [theme, setTheme] = useState('light');
-
-  const toggleTheme = (theme: string) => {
-    setTheme(theme === 'light' ? 'light' : 'dark');
-  };
+  const [theme, setTheme] = useState<AppTheme['theme']>('light');
 
   useEffect(() => {
-    document
-      .querySelector(':root')
-      ?.classList[theme === 'dark' ? 'add' : 'remove']('dark');
+    if (typeof window !== 'undefined') {
+      const prefersDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      setTheme(prefersDarkMode ? 'dark' : 'light');
+    }
+  }, []);
+
+  useEffect(() => {
+    document.querySelector(':root')?.setAttribute('color-scheme', theme);
   }, [theme]);
 
   return (
-    <ThemeContext.Provider value={{ theme, toggleTheme }}>
-      {children}
-    </ThemeContext.Provider>
+    <ThemeContext.Provider value={{ theme, setTheme }}>{children}</ThemeContext.Provider>
   );
 }

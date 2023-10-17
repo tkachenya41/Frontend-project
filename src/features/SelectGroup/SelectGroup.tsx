@@ -31,6 +31,8 @@ export default function SelectGroup({
     }
   };
 
+  const selectStyle = `${Style.selectGroup__select} selectGroup`;
+
   useEffect(() => {
     const updatedQueryString = queryString.stringify({
       q: currentSearchQuery,
@@ -45,7 +47,7 @@ export default function SelectGroup({
       <Select
         classNamePrefix='react-select'
         instanceId='languageSort'
-        className={Style.selectGroup__select}
+        className={selectStyle}
         options={languageOptions}
         onChange={(selectedOption) => handleChange('language', selectedOption)}
         placeholder='Language'
@@ -53,7 +55,7 @@ export default function SelectGroup({
       <Select
         classNamePrefix='react-select'
         instanceId='pageSizeSort'
-        className={Style.selectGroup__select}
+        className={selectStyle}
         options={pageSizeOptions}
         onChange={(selectedOption) => handleChange('pageSize', selectedOption)}
         placeholder='Page size'
@@ -61,7 +63,7 @@ export default function SelectGroup({
       <Select
         classNamePrefix='react-select'
         instanceId='Sortby'
-        className={Style.selectGroup__select}
+        className={selectStyle}
         options={sortByOptions}
         onChange={(selectedOption) => handleChange('sortBy', selectedOption)}
         placeholder='Sort by'

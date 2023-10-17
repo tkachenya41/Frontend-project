@@ -1,8 +1,8 @@
 import { createContext, useContext } from 'react';
 
 export type AppTheme = {
-  theme: string;
-  toggleTheme: (theme: string) => void;
+  theme: 'light' | 'dark';
+  setTheme: (theme: 'light' | 'dark') => void;
 };
 
 export const ThemeContext = createContext<AppTheme | null>(null);

@@ -7,10 +7,17 @@
   &__button {
     background: transparent;
     border: none;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
   }
 
   &__icon {
     border-radius: 50%;
     padding: 0.2rem;
+
+    &-selected {
+      background-color: var(--primary-color);
+    }
   }
 }

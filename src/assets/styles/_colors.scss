@@ -1,4 +1,5 @@
 :root {
+  color-scheme: light;
   --primary-color: cadetblue;
   --secondary-color: #ff3d00;
   --primary-dark-color: black;
@@ -9,7 +10,34 @@
   --primary-active-color: hsla(0, 0%, 16%);
 }
 
-:root.dark {
+@media (prefers-color-scheme: dark) {
+  :root {
+    color-scheme: dark;
+    --primary-color: cadetblue;
+    --secondary-color: #ff3d00;
+    --primary-dark-color: white;
+    --secondary-dark-color: #383838;
+    --primary-box-shadow: #343434;
+    --primary-background-header: hsla(0, 0%, 17%, 0.8);
+    --primary-background-color: rgb(35 39 47/1);
+    --primary-active-color: hsla(0, 0%, 16%);
+  }
+}
+
+[color-scheme='light'] {
+  color-scheme: light;
+  --primary-color: cadetblue;
+  --secondary-color: #ff3d00;
+  --primary-dark-color: black;
+  --secondary-dark-color: #e6e6e6;
+  --primary-box-shadow: #eaeaea;
+  --primary-background-header: hsla(0, 0%, 100%, 0.8);
+  --primary-background-color: white;
+  --primary-active-color: hsla(0, 0%, 16%);
+}
+
+[color-scheme='dark'] {
+  color-scheme: dark;
   --primary-color: cadetblue;
   --secondary-color: #ff3d00;
   --primary-dark-color: white;

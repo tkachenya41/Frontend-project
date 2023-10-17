@@ -21,10 +21,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body className={monserrat.className}>
         <ThemeProvider>
           <SearchProvider>
-            <div id='root'>
-              <Header />
-              {children}
-            </div>
+            <Header />
+            {children}
           </SearchProvider>
         </ThemeProvider>
       </body>
