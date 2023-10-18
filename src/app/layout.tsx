@@ -1,4 +1,5 @@
 import '@/assets/styles/globals.scss';
+import { ArticlesProvider } from '@/contexts/ArticleContext/ArticleContextProvider';
 import { SearchProvider } from '@/contexts/SearchContext/SearchContextProvider';
 import Header from '@/features/Header/Header';
 import type { Metadata } from 'next';
@@ -18,10 +19,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang='en'>
       <body className={monserrat.className}>
-        <SearchProvider>
-          <Header />
-          {children}
-        </SearchProvider>
+        <ArticlesProvider>
+          <SearchProvider>
+            <Header />
+            {children}
+          </SearchProvider>
+        </ArticlesProvider>
       </body>
     </html>
   );

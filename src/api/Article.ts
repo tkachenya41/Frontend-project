@@ -7,6 +7,9 @@ export const schemaArticleAPI = z.object({
   description: z.string(),
   urlToImage: z.string().nullable(),
   id: z.string(),
+  publishedAt: z.string().nullable(),
+  content: z.string(),
+  url: z.string(),
 });
 
 export type ArticleAPI = z.infer<typeof schemaArticleAPI>;

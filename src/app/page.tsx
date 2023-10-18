@@ -2,17 +2,17 @@
 import Styles from './page.module.scss';
 import { useEffect, useState } from 'react';
 import { Articles } from '@/features/Articles/Articles';
-import { ArticleAPI } from '@/api/Article';
 import { fetchNews } from '@/api/fetchNews';
 import { fetchSearch } from '@/api/fetchSearch';
 import Image from 'next/image';
 import { useSearchParams } from 'next/navigation';
 import Loader from '@/components/Loader/Loader';
 import SelectGroup from '@/features/SelectGroup/SelectGroup';
+import { useArticle } from '@/contexts/ArticleContext/ArticleContext';
 
 export default function Home() {
   const [isLoading, setIsLoading] = useState(false);
-  const [articles, setArticles] = useState<ArticleAPI[] | null>(null);
+  const { articles, setArticles } = useArticle();
 
   const query = useSearchParams();
 

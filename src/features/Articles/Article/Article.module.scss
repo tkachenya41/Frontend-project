@@ -1,0 +1,56 @@
+@use '@/assets/styles/variables' as *;
+
+.article {
+  display: flex;
+  gap: 2rem;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+
+.details {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.imageContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  width: 18.5rem;
+
+  @include media-mobile-l {
+    width: 25rem;
+  }
+
+  @include media-tablet {
+    width: 30rem;
+  }
+}
+
+.img {
+  border-radius: 3rem;
+  object-fit: cover;
+}
+
+.text {
+  width: 18rem;
+
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+
+  @include media-mobile-l {
+    width: 30rem;
+  }
+
+  @include media-tablet {
+    width: 40rem;
+  }
+}
+
+.link {
+  border-bottom: 1px solid var(--primary-color);
+}

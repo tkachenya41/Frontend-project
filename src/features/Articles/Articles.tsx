@@ -1,14 +1,19 @@
 import { ArticleAPI } from '@/api/Article';
 import ArticlesStyle from './Articles.module.scss';
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 
 export function Articles({ articles }: { articles: ArticleAPI[] | null }) {
+  const router = useRouter();
   return (
     <>
       {articles && (
         <div className={ArticlesStyle.articles}>
           {articles.map((article) => (
-            <div className={ArticlesStyle.article} key={article.id}>
+            <div
+              className={ArticlesStyle.article}
+              key={article.id}
+              onClick={() => router.push(`/${article.id}`)}>
               {article.urlToImage ? (
                 <img className={ArticlesStyle.img} src={article.urlToImage} />
               ) : (
