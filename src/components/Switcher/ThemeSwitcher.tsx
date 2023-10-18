@@ -9,7 +9,7 @@ export default function ThemeSwitcher() {
 
   const getImageClass = (selectedTheme: string) => {
     return classnames(Style['switcher__icon'], {
-      [Style['switcher__icon-selected']]: theme === selectedTheme,
+      [Style['switcher__icon--selected']]: theme === selectedTheme,
     });
   };
 
