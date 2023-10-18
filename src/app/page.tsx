@@ -12,7 +12,7 @@ import SelectGroup from '@/features/SelectGroup/SelectGroup';
 
 export default function Home() {
   const [isLoading, setIsLoading] = useState(false);
-  const [articles, setArticles] = useState<ArticleAPI[] | null>(null);
+  const [articles, setArticles] = useState<ArticleAPI[] | null>([]);
 
   const query = useSearchParams();
 
@@ -21,6 +21,8 @@ export default function Home() {
   const currentSizeQuery = query.get('pageSize') || '20';
   const currentSortBy = query.get('sortBy') || 'publishedAt';
 
+  const currentCategoryQuery = query.get('category') || 'general';
+
   useEffect(() => {
     (async function () {
       setIsLoading(true);
@@ -28,7 +30,7 @@ export default function Home() {
         let response;
 
         if (!currentSearchQuery) {
-          response = await fetchNews();
+          response = await fetchNews({ category: currentCategoryQuery });
         } else {
           response = await fetchSearch({
             request: currentSearchQuery,
@@ -45,7 +47,13 @@ export default function Home() {
         setIsLoading(false);
       }
     })();
-  }, [currentSearchQuery, currentLanguageQuery, currentSizeQuery, currentSortBy]);
+  }, [
+    currentSearchQuery,
+    currentLanguageQuery,
+    currentSizeQuery,
+    currentSortBy,
+    currentCategoryQuery,
+  ]);
 
   return (
     <main className={Styles.main}>
