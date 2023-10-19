@@ -1,5 +1,6 @@
 import '@/assets/styles/globals.scss';
 import { SearchProvider } from '@/contexts/SearchContext/SearchContextProvider';
+import { ThemeProvider } from '@/contexts/ThemeContext/ThemeContextProvide';
 import Header from '@/features/Header/Header';
 import type { Metadata } from 'next';
 import { Montserrat } from 'next/font/google';
@@ -18,10 +19,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang='en'>
       <body className={monserrat.className}>
-        <SearchProvider>
-          <Header />
-          {children}
-        </SearchProvider>
+        <ThemeProvider>
+          <SearchProvider>
+            <Header />
+            {children}
+          </SearchProvider>
+        </ThemeProvider>
       </body>
     </html>
   );

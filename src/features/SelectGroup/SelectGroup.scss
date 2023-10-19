@@ -1,0 +1,11 @@
+.selectGroup {
+  .react-select__control,
+  .react-select__menu {
+    background-color: var(--primary-background-color);
+    color: var(--primary-color);
+  }
+
+  .react-select__single-value {
+    color: var(--primary-color);
+  }
+}

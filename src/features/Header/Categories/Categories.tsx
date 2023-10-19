@@ -2,6 +2,7 @@ import Link from 'next/link';
 import Style from './Categories.module.scss';
 import { usePathname, useSearchParams } from 'next/navigation';
 import { RefObject } from 'react';
+import ThemeSwitcher from '@/components/Switcher/ThemeSwitcher';
 
 export default function Categories({
   isOpen,
@@ -37,6 +38,9 @@ export default function Categories({
       </li>
       <li className={category === 'technology' ? Style.active : ''}>
         <Link href={'/?category=technology'}>Tech</Link>
+      </li>
+      <li>
+        <ThemeSwitcher />
       </li>
     </ul>
   );
