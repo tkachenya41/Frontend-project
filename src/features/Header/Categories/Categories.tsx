@@ -2,6 +2,7 @@ import Link from 'next/link';
 import Style from './Categories.module.scss';
 import { usePathname, useSearchParams } from 'next/navigation';
 import { RefObject } from 'react';
+import ThemeSwitcher from '@/components/Switcher/ThemeSwitcher';
 
 export default function Categories({
   isOpen,
@@ -18,7 +19,7 @@ export default function Categories({
   const language = search.get('language');
 
   return (
-    <ul className={Style.list} data-open={isOpen} ref={reference} onClick={makeOpen}>
+    <ul className={Style.list} aria-expanded={isOpen} ref={reference} onClick={makeOpen}>
       <li className={!language && !query && pathname === '/' ? Style.active : ''}>
         <Link href={'/'}>Home</Link>
       </li>
@@ -33,6 +34,9 @@ export default function Categories({
       </li>
       <li className={pathname === '/tech' ? Style.active : ''}>
         <Link href={'/tech'}>Tech</Link>
+      </li>
+      <li>
+        <ThemeSwitcher />
       </li>
     </ul>
   );
