@@ -20,6 +20,8 @@ const commonErrorText = 'An error occurred';
 export default function Home() {
   const [isLoading, setIsLoading] = useState(false);
   const [articles, setArticles] = useState<ArticleAPI[] | []>([]);
+  const [isErrorModalOpen, setIsErrorModalOpen] = useState(false);
+  const [errorText, setErrorText] = useState('');
 
   const query = useSearchParams();
 
