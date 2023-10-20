@@ -2,6 +2,7 @@ import Link from 'next/link';
 import Style from './Categories.module.scss';
 import { usePathname, useSearchParams } from 'next/navigation';
 import { RefObject } from 'react';
+import ThemeSwitcher from '@/components/Switcher/ThemeSwitcher';
 
 export default function Categories({
   isOpen,
@@ -16,23 +17,30 @@ export default function Categories({
   const search = useSearchParams();
   const query = search.get('q');
   const language = search.get('language');
+  const category = search.get('category');
 
   return (
     <ul className={Style.list} data-open={isOpen} ref={reference} onClick={makeOpen}>
-      <li className={!language && !query && pathname === '/' ? Style.active : ''}>
+      <li
+        className={
+          !language && !query && !category && pathname === '/' ? Style.active : ''
+        }>
         <Link href={'/'}>Home</Link>
       </li>
-      <li className={pathname === '/sports' ? Style.active : ''}>
-        <Link href={'/sports'}>Sports</Link>
+      <li className={category === 'sports' ? Style.active : ''}>
+        <Link href={'/?category=sports'}>Sports</Link>
       </li>
-      <li className={pathname === '/politics' ? Style.active : ''}>
-        <Link href={'/politics'}>Politics</Link>
+      <li className={category === 'entertainment' ? Style.active : ''}>
+        <Link href={'/?category=entertainment'}>Entertainment</Link>
       </li>
-      <li className={pathname === '/business' ? Style.active : ''}>
-        <Link href={'/business'}>Business</Link>
+      <li className={category === 'business' ? Style.active : ''}>
+        <Link href={'/?category=business'}>Business</Link>
       </li>
-      <li className={pathname === '/tech' ? Style.active : ''}>
-        <Link href={'/tech'}>Tech</Link>
+      <li className={category === 'technology' ? Style.active : ''}>
+        <Link href={'/?category=technology'}>Tech</Link>
+      </li>
+      <li>
+        <ThemeSwitcher />
       </li>
     </ul>
   );

@@ -11,6 +11,7 @@ import {
   pageSizeOptions,
   sortByOptions,
 } from './constants';
+import './SelectGroup.scss';
 
 export default function SelectGroup({
   currentSearchQuery,
@@ -30,6 +31,8 @@ export default function SelectGroup({
     }
   };
 
+  const selectGroupStyle = `${Style.selectGroup} selectGroup`;
+
   useEffect(() => {
     const updatedQueryString = queryString.stringify({
       q: currentSearchQuery,
@@ -40,8 +43,9 @@ export default function SelectGroup({
   }, [currentSearchQuery, queryParams]);
 
   return (
-    <div className={Style.selectGroup}>
+    <div className={selectGroupStyle}>
       <Select
+        classNamePrefix='react-select'
         instanceId='languageSort'
         className={Style.selectGroup__select}
         options={languageOptions}
@@ -49,6 +53,7 @@ export default function SelectGroup({
         placeholder='Language'
       />
       <Select
+        classNamePrefix='react-select'
         instanceId='pageSizeSort'
         className={Style.selectGroup__select}
         options={pageSizeOptions}
@@ -56,6 +61,7 @@ export default function SelectGroup({
         placeholder='Page size'
       />
       <Select
+        classNamePrefix='react-select'
         instanceId='Sortby'
         className={Style.selectGroup__select}
         options={sortByOptions}

@@ -17,6 +17,8 @@
       "overflow",
       "background-color",
       "color",
+      "font-family",
+      "font-size",
       "width",
       "height",
       "max-width",
@@ -31,9 +33,7 @@
       "margin",
       "padding",
       "border",
-      "border-radius",
-      "font-family",
-      "font-size"
+      "border-radius"
     ]
   }
 }
