@@ -78,7 +78,7 @@ export default function Home() {
         {isLoading ? (
           <Loader />
         ) : (
-          articles?.length === 0 && (
+          !articles.length && (
             <div className={Styles.nothing}>
               <Image width={200} height={200} alt='No svg' src={'/sadSmile.svg'}></Image>
               <h2>

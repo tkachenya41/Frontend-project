@@ -8,13 +8,14 @@ export default function ArticlePage({ params }: { params: { id: string } }) {
   const { articles } = useArticle();
 
   const article = articles?.find((article) => article.id === params.id);
+
+  if (!article) {
+    return redirect('/');
+  }
+
   return (
     <main className={Style.main}>
-      {article ? (
-        <Article articles={articles} params={params} article={article} />
-      ) : (
-        redirect('/')
-      )}
+      <Article articles={articles} params={params} article={article} />
     </main>
   );
 }
