@@ -18,7 +18,7 @@ const axiosErrorText =
 const commonErrorText = 'An error occurred';
 
 export default function Home() {
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const { articles, setArticles } = useArticle();
   const [isErrorModalOpen, setIsErrorModalOpen] = useState(false);
   const [errorText, setErrorText] = useState('');
@@ -75,14 +75,17 @@ export default function Home() {
             <h2>Results of : '{currentSearchQuery}'</h2>
           </>
         )}
-        <Loader isLoading={isLoading} />
-        {articles?.length === 0 && (
-          <div className={Styles.nothing}>
-            <Image width={200} height={200} alt='No svg' src={'/sadSmile.svg'}></Image>
-            <h2>
-              Not Found... <hr /> Try again later
-            </h2>
-          </div>
+        {isLoading ? (
+          <Loader />
+        ) : (
+          articles?.length === 0 && (
+            <div className={Styles.nothing}>
+              <Image width={200} height={200} alt='No svg' src={'/sadSmile.svg'}></Image>
+              <h2>
+                Not Found... <hr /> Try again later
+              </h2>
+            </div>
+          )
         )}
         <Articles articles={articles}></Articles>
       </div>

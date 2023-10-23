@@ -2,11 +2,14 @@ import { ArticleAPI } from '@/api/Article';
 import { createContext, useContext } from 'react';
 
 export interface ArticleContextProps {
-  articles: ArticleAPI[] | null;
+  articles: ArticleAPI[];
   setArticles: (articles: ArticleAPI[]) => void;
 }
 
-export const ArticleContext = createContext<ArticleContextProps | null>(null);
+export const ArticleContext = createContext<ArticleContextProps>({
+  articles: [],
+  setArticles: () => {},
+});
 
 export function useArticle(): ArticleContextProps {
   const context = useContext(ArticleContext);

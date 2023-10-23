@@ -5,20 +5,20 @@ import Link from 'next/link';
 
 export default function Article({
   articles,
+  article,
   params,
 }: {
-  articles: ArticleAPI[] | null;
+  articles: ArticleAPI[];
+  article: ArticleAPI;
   params: { id: string };
 }) {
-  const filteredArticle = articles?.find((article) => article.id === params.id);
-
   return (
     <div>
-      {filteredArticle && (
+      {article && (
         <div className={Style.article}>
           <div className={Style.imageContainer}>
-            {filteredArticle.urlToImage ? (
-              <img className={Style.img} src={filteredArticle.urlToImage} />
+            {article.urlToImage ? (
+              <img className={Style.img} src={article.urlToImage} />
             ) : (
               <Image
                 className={Style.img}
@@ -30,29 +30,29 @@ export default function Article({
             )}
           </div>
           <div className={Style.text}>
-            <h3>{filteredArticle.title}</h3>
+            <h3>{article.title}</h3>
             <p>
               <i>Author: </i>
-              {filteredArticle.author}
+              {article.author}
             </p>
             <div className={Style.details}>
-              {filteredArticle.publishedAt && (
+              {article.publishedAt && (
                 <p>
                   <i>Publication Time: </i>
-                  {new Date(filteredArticle.publishedAt).toLocaleString()}
+                  {new Date(article.publishedAt).toLocaleString()}
                 </p>
               )}
-              {filteredArticle.url && (
+              {article.url && (
                 <p>
                   <i>Source: </i>
-                  <Link className={Style.link} href={filteredArticle.url} target='_blank'>
+                  <Link className={Style.link} href={article.url} target='_blank'>
                     Link
                   </Link>
                 </p>
               )}
             </div>
-            <p>{filteredArticle.description}</p>
-            <p>{filteredArticle.content}</p>
+            <p>{article.description}</p>
+            <p>{article.content}</p>
           </div>
         </div>
       )}

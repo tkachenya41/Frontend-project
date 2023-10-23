@@ -4,7 +4,7 @@ import { ArticleContext } from './ArticleContext';
 import { ArticleAPI } from '@/api/Article';
 
 export function ArticlesProvider({ children }: { children: ReactNode }) {
-  const [articles, setArticles] = useState<ArticleAPI[] | null>(null);
+  const [articles, setArticles] = useState<ArticleAPI[]>([]);
 
   return (
     <ArticleContext.Provider value={{ articles, setArticles }}>
