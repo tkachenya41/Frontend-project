@@ -10,6 +10,11 @@
 
 .article {
   width: 18rem;
+  cursor: pointer;
+
+  &:hover {
+    opacity: 0.7;
+  }
 
   @include media-mobile-l {
     width: 20.5rem;

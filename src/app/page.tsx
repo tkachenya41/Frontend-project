@@ -2,13 +2,13 @@
 import Styles from './page.module.scss';
 import { useEffect, useState } from 'react';
 import { Articles } from '@/features/Articles/Articles';
-import { ArticleAPI } from '@/api/Article';
 import { fetchNews } from '@/api/fetchNews';
 import { fetchSearch } from '@/api/fetchSearch';
 import Image from 'next/image';
 import { useSearchParams } from 'next/navigation';
 import Loader from '@/components/Loader/Loader';
 import SelectGroup from '@/features/SelectGroup/SelectGroup';
+import { useArticle } from '@/contexts/ArticleContext/ArticleContext';
 import Modal from '@/components/Popup/Popup';
 import { AxiosError } from 'axios';
 
@@ -18,8 +18,8 @@ const axiosErrorText =
 const commonErrorText = 'An error occurred';
 
 export default function Home() {
-  const [isLoading, setIsLoading] = useState(false);
-  const [articles, setArticles] = useState<ArticleAPI[] | []>([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const { articles, setArticles } = useArticle();
   const [isErrorModalOpen, setIsErrorModalOpen] = useState(false);
   const [errorText, setErrorText] = useState('');
 
@@ -75,14 +75,17 @@ export default function Home() {
             <h2>Results of : '{currentSearchQuery}'</h2>
           </>
         )}
-        <Loader isLoading={isLoading} />
-        {articles?.length === 0 && (
-          <div className={Styles.nothing}>
-            <Image width={200} height={200} alt='No svg' src={'/sadSmile.svg'}></Image>
-            <h2>
-              Not Found... <hr /> Try again later
-            </h2>
-          </div>
+        {isLoading ? (
+          <Loader />
+        ) : (
+          !articles.length && (
+            <div className={Styles.nothing}>
+              <Image width={200} height={200} alt='No svg' src={'/sadSmile.svg'}></Image>
+              <h2>
+                Not Found... <hr /> Try again later
+              </h2>
+            </div>
+          )
         )}
         <Articles articles={articles}></Articles>
       </div>
